@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState} from 'react'
+import Welcome from './components/Welcome'
+import PlayerList from './components/PlayerList'
+import Favorites from './components/Favorites'
+import { playerData } from './data/playerData'
 
 function App() {
+  const [favorites, setFavorites] = useState([])
+
+  const addToFavorites = (name) => {
+   if (!favorites.includes(name)) {
+     const updatedFavorites = [...favorites, name]
+     setFavorites(updatedFavorites)
+   }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Welcome />
+      <PlayerList data={playerData} addToFavorites={addToFavorites} />
+      <Favorites data={favorites} />
     </div>
   );
 }
